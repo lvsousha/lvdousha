@@ -21,20 +21,33 @@ public class Main
     	String password = "root";
     	Class.forName(driverClassName);
     	java.sql.Connection connection = DriverManager.getConnection(url,userName,password);
-//    	boolean autoCommit = connection.getAutoCommit();
-//    	if(autoCommit == true){
-//    		connection.setAutoCommit(false);
-//    	}
+    	boolean autoCommit = connection.getAutoCommit();
+    	if(autoCommit == true){
+    		connection.setAutoCommit(false);
+    	}
     	System.out.println(connection.getAutoCommit());
     	System.out.println(Calendar.getInstance());
+    	
     	PreparedStatement prepareStatement = connection.prepareStatement("insert into user(name,password) value(?,?)");
     	for(int i=0;i<10000;i++){
     		prepareStatement.setString(1, "test"+i);
-    		prepareStatement.setString(2, "test123");
+    		prepareStatement.setString(2, "test"+i);
     		prepareStatement.addBatch();
     	}
     	prepareStatement.executeBatch();
-//    	connection.commit();
+    	connection.commit();
+    	prepareStatement.clearBatch();
+    	System.out.println(Calendar.getInstance());
+    	
+    	prepareStatement = connection.prepareStatement("update user set name=? where name=?");
+    	for(int i=0;i<10000;i++){
+    		System.out.println(i);
+    		prepareStatement.setString(1, "test"+i);
+    		prepareStatement.setString(2, "test"+i);
+    		prepareStatement.addBatch();
+    	}
+    	prepareStatement.executeBatch();
+    	connection.commit();
     	System.out.println(Calendar.getInstance());
     	prepareStatement.close();
     	connection.close();
