@@ -1,11 +1,9 @@
 package com.lvdousha.jdbc.basic;
 
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.util.Calendar;
-import java.util.Properties;
+
+import org.apache.log4j.Logger;
 
 
 /**
@@ -14,7 +12,9 @@ import java.util.Properties;
  */
 public class Main 
 {
+	//批量插入10000，2s； 批量更新150s
     public static void main( String[] args ) throws Exception{
+    	Logger log = Logger.getRootLogger();
     	String driverClassName = "com.mysql.jdbc.Driver";
     	String url = "jdbc:mysql://localhost:3306/lvdousha";
     	String userName = "root";
@@ -25,32 +25,31 @@ public class Main
     	if(autoCommit == true){
     		connection.setAutoCommit(false);
     	}
-    	System.out.println(connection.getAutoCommit());
-    	System.out.println(Calendar.getInstance());
+    	log.info(connection.getAutoCommit());
+    	log.info("开始插入");
     	
-    	PreparedStatement prepareStatement = connection.prepareStatement("insert into user(name,password) value(?,?)");
+    	PreparedStatement prepareStatement = connection.prepareStatement("insert into user(name,age) value(?,?)");
     	for(int i=0;i<10000;i++){
-    		prepareStatement.setString(1, "test"+i);
-    		prepareStatement.setString(2, "test"+i);
+    		prepareStatement.setString(1, "insert"+i);
+    		prepareStatement.setInt(2, i);
     		prepareStatement.addBatch();
     	}
     	prepareStatement.executeBatch();
     	connection.commit();
     	prepareStatement.clearBatch();
-    	System.out.println(Calendar.getInstance());
-    	
+    	log.info("插入结束");
+    	log.info("开始更新");
     	prepareStatement = connection.prepareStatement("update user set name=? where name=?");
     	for(int i=0;i<10000;i++){
-    		System.out.println(i);
-    		prepareStatement.setString(1, "test"+i);
-    		prepareStatement.setString(2, "test"+i);
+    		prepareStatement.setString(1, "update"+i);
+    		prepareStatement.setString(2, "insert"+i);
     		prepareStatement.addBatch();
     	}
     	prepareStatement.executeBatch();
     	connection.commit();
-    	System.out.println(Calendar.getInstance());
+    	log.info("更新结束");
     	prepareStatement.close();
     	connection.close();
-    	System.out.println(Calendar.getInstance());
+    	log.info("结束");
     }
 }
