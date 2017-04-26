@@ -1,3 +1,9 @@
 lvdousha-jdbc/basic/jdbc.basic/.classpath
 lvdousha-jdbc/basic/jdbc.basic/.settings/
 lvdousha-jdbc/basic/jdbc.basic/.project
+graph-database.neo4j/.classpath
+graph-database.neo4j/.settings/
+graph-database.neo4j/.project
+jdbc.basic/.classpath
+jdbc.basic/.settings/
+jdbc.basic/.project
