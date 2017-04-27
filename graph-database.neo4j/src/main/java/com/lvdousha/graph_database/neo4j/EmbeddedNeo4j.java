@@ -34,6 +34,7 @@ public class EmbeddedNeo4j {
 	
 	private EmbeddedNeo4j() {
 		graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(new File(DB_PATH));
+		registerShutdownHook(graphDb);
 	}
 
 	public static EmbeddedNeo4j getInstance() {
@@ -42,22 +43,22 @@ public class EmbeddedNeo4j {
 		}
 		if(graphDb == null){
 			graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(new File(DB_PATH));
+			registerShutdownHook(graphDb);
 		}
 		return instance;
 	}
 
 	public static void main(final String[] args) throws IOException {
-		FileUtils.deleteRecursively(new File(DB_PATH));
-		EmbeddedNeo4j hello = new EmbeddedNeo4j();
-		hello.createNode();
+//		FileUtils.deleteRecursively(new File(DB_PATH));
+		EmbeddedNeo4j embeddedNeo4j = EmbeddedNeo4j.getInstance();
+//		embeddedNeo4j.createNode();
+		embeddedNeo4j.search();
 		// 删除数据
-//		hello.removeData();
-		hello.shutDown();
+//		embeddedNeo4j.removeData();
+		embeddedNeo4j.shutDown();
 	}
 	
-	void createNode() throws IOException {
-		registerShutdownHook(graphDb);
-		// Embedded Neo4j基本上所有的操作都需要在事务内执行
+	public void createNode() {
 		try (Transaction tx = graphDb.beginTx()) {
 			Index<Node> nodeIndex = graphDb.index().forNodes( "nodes" );
 			Node firstNode;
@@ -90,44 +91,40 @@ public class EmbeddedNeo4j {
 			relationship3.setProperty("amount", 300);
 			Relationship relationship4 = firstNode.createRelationshipTo(fifthNode, RelTypes.TRANSFER);
 			relationship4.setProperty("amount", 400);
+			tx.success();
+		}
+	}
+	
+	void search() throws IOException {
+		try (Transaction tx = graphDb.beginTx()) {
+			Index<Node> nodeIndex = graphDb.index().forNodes( "nodes" );
+			
+			Node user = nodeIndex.get( "name", "Joe" ).getSingle();
+			if(user != null){
+				System.out.println(user.getProperty("name"));
+			}
 			
 			TraversalDescription td = graphDb.traversalDescription()
 		            .breadthFirst()
 		            .relationships( RelTypes.TRANSFER, Direction.OUTGOING )
 		            .evaluator( new Evaluator(){
 		                @Override
-		                public Evaluation evaluate( final Path path )
-		                {
-		                    if ( path.length() == 0 )
-		                    {
+		                public Evaluation evaluate( final Path path ){
+		                    if ( path.length() == 0 ){
 		                        return Evaluation.EXCLUDE_AND_CONTINUE;
 		                    }
 		                    boolean included = path.length() <= 2;
 		                    boolean continued = path.length() < 3;
 		                    return Evaluation.of( included, continued );
 		                }
-		            } )
+		            })
 		            .uniqueness( Uniqueness.NODE_PATH );
-			Traverser tranversal = td.traverse(firstNode);
+			Traverser tranversal = td.traverse(user);
 			PathPrinter pathPrinter = new PathPrinter( "name" );
-			for ( Path path : tranversal ){
-//				String p = "";
-//				for(Relationship relationship : path.relationships()){
-//					Node end = relationship.getEndNode();
-//					Node start = relationship.getStartNode();
-//					String type = relationship.getType().toString();
-//					p += start.getProperty("name")+"--["+type+"]-->";
-//					
-//				}
-				System.out.println(path.toString());
+			for (Path path : tranversal){
+//				System.out.println(path.toString());
 				System.out.println(org.neo4j.graphdb.traversal.Paths.pathToString(path, pathPrinter ));
 			}
-			
-			Node user = nodeIndex.get( "name", "lll" ).getSingle();
-			if(user != null){
-				System.out.println(user.getProperty("name"));
-			}
-			
 			tx.success();
 		}
 	}
@@ -147,16 +144,11 @@ public class EmbeddedNeo4j {
 	// 关闭Neo4j 数据库
 	void shutDown() {
 		System.out.println("Shutting down database ...");
-		// START SNIPPET: shutdownServer
 		graphDb.shutdown();
-		// END SNIPPET: shutdownServer
 	}
 
 	// 为Neo4j 实例注册一个关闭的hook，当VM被强制退出时，Neo4j 实例能够正常关闭
 	private static void registerShutdownHook(final GraphDatabaseService graphDb) {
-		// Registers a shutdown hook for the Neo4j instance so that it
-		// shuts down nicely when the VM exits (even if you "Ctrl-C" the
-		// running application).
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
