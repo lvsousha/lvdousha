@@ -1,6 +1,5 @@
 package com.boot.web.repository.test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -13,6 +12,7 @@ import com.boot.Application;
 import com.boot.web.model.User;
 import com.boot.web.repository.UserRepository;
 
+@SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 public class MainRepositoryTest {

@@ -15,6 +15,7 @@ import org.beetl.sql.ext.DebugInterceptor;
 
 public class Entrance {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws Exception {
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://127.0.0.1:3306/beetlsql?serverTimezone=GMT&userSSL=false&characterEncoding=utf-8&useServerPrepStmts=false&rewriteBatchedStatements=true";

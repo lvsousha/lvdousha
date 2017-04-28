@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.boot.Application;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+@SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
