@@ -7,3 +7,5 @@ graph-database.neo4j/.project
 jdbc.basic/.classpath
 jdbc.basic/.settings/
 jdbc.basic/.project
+web.springboot/.classpath
+web.springboot/.settings/
