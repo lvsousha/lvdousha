@@ -17,10 +17,11 @@ import org.neo4j.graphdb.traversal.Evaluator;
 import org.neo4j.graphdb.traversal.TraversalDescription;
 import org.neo4j.graphdb.traversal.Traverser;
 import org.neo4j.graphdb.traversal.Uniqueness;
+import org.neo4j.io.fs.FileUtils;
 
 public class EmbeddedNeo4j {
 	// Embedded Neo4j会在本地产生一个文件夹(类似于Mysql的数据库)
-	private static final String DB_PATH = "target/neo4j-hello-db";
+	private static final String DB_PATH = "neo4j/db";
 	private static EmbeddedNeo4j instance;
 
 	public String greeting;
@@ -47,9 +48,9 @@ public class EmbeddedNeo4j {
 	}
 
 	public static void main(final String[] args) throws IOException {
-//		FileUtils.deleteRecursively(new File(DB_PATH));
+		FileUtils.deleteRecursively(new File(DB_PATH));
 		EmbeddedNeo4j embeddedNeo4j = EmbeddedNeo4j.getInstance();
-//		embeddedNeo4j.createNode();
+		embeddedNeo4j.createNode();
 		embeddedNeo4j.search();
 		// 删除数据
 //		embeddedNeo4j.removeData();
@@ -101,7 +102,6 @@ public class EmbeddedNeo4j {
 			if(user != null){
 				System.out.println(user.getProperty("name"));
 			}
-			
 			TraversalDescription td = graphDb.traversalDescription()
 		            .breadthFirst()
 		            .relationships( RelTypes.TRANSFER, Direction.OUTGOING )

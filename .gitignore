@@ -9,3 +9,4 @@ jdbc.basic/.settings/
 jdbc.basic/.project
 web.springboot/.classpath
 web.springboot/.settings/
+graph-database.neo4j/neo4j/
