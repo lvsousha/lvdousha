@@ -1,0 +1,21 @@
+server:  
+    port:8080  
+    address:localhost  
+spring:    
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/lvdousha?serverTimezone=GMT&userSSL=false&characterEncoding=utf-8&useServerPrepStmts=false&rewriteBatchedStatements=true
+        username: root
+        password: root
+    http:  
+        encoding.charset: UTF-8  
+        encoding.enable: true  
+        encoding.force: true  
+#mybatis:  
+#    typeAliasesPackage: com.modou.**.domain  
+#    mapperLocations: classpath:/mybatis/mapper/*.xml  
+#    configLocation: classpath:/mybatis/config.xml  
+#logging:  
+#    level:  
+#       com.ibatis:DEBUG

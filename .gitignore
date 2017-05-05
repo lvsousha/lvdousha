@@ -12,3 +12,5 @@ web.springboot/.settings/
 graph-database.neo4j/neo4j/
 jdbc.mybatis/.classpath
 jdbc.mybatis/.settings/
+web.springboot-mybatis/.classpath
+web.springboot-mybatis/.settings/
