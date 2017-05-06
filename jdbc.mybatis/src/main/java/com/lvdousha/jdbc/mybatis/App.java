@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.lvdousha.jdbc.mybatis.mapper.BlogMapper;
-import com.lvdousha.jdbc.mybatis.model.Blog;
+import com.lvdousha.jdbc.mybatis.mapper.UserMapper;
+import com.lvdousha.jdbc.mybatis.model.User;
 
 /**
  * Hello world!
@@ -20,12 +20,15 @@ public class App{
     	InputStream inputStream = Resources.getResourceAsStream(resource);
     	SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     	SqlSession session = sqlSessionFactory.openSession();
-//    	try {
-//    		Blog blog = (Blog) session.selectOne("com.lvdousha.jdbc.mybatis.mapper.BlogMapper.selectBlog", 101);
-//    		BlogMapper mapper = session.getMapper(BlogMapper.class);
-//    		Blog blog = mapper.selectBlog(101);
-//    	} finally {
-//    	  session.close();
-//    	}
+    	try {
+    		UserMapper userMapper = session.getMapper(UserMapper.class);
+    		User user = userMapper.selectUser(1);
+    		System.out.println(user.getName());
+    		user = userMapper.selectUserByName("lvdousha","123456");
+    		System.out.println(user.getId());
+    				
+    	} finally {
+    	  session.close();
+    	}
     }
 }
