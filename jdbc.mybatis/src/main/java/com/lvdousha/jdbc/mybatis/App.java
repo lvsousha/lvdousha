@@ -1,6 +1,7 @@
 package com.lvdousha.jdbc.mybatis;
 
 import java.io.InputStream;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -22,13 +23,21 @@ public class App{
     	SqlSession session = sqlSessionFactory.openSession();
     	try {
     		UserMapper userMapper = session.getMapper(UserMapper.class);
-    		User user = userMapper.selectUser(1);
-    		System.out.println(user.getName());
-    		user = userMapper.selectUserByName("lvdousha","123456");
-    		System.out.println(user.getId());
+//    		User user = userMapper.selectUser(1);
+//    		System.out.println(user.getName());
+//    		user = userMapper.selectUserByNameAndPassword("lvdousha","123456");
+//    		System.out.println(user.getId());
+//    		Map<String,Object> map = userMapper.selectUserByName("lvdousha");
+//    		for(String key : map.keySet()){
+//    			System.out.println(key+"==="+map.get(key));
+//    		}
+    		User user = new User();
+    		user.setName("test");
+    		userMapper.insertUser(user);
     				
     	} finally {
-    	  session.close();
+    		session.commit();
+    		session.close();
     	}
     }
 }

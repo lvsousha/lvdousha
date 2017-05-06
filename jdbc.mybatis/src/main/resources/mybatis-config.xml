@@ -9,9 +9,9 @@
 		<!-- <typeAlias alias="Blog" type="com.lvdousha.jdbc.mybatis.model.Blog"/> -->
 		<package name="com.lvdousha.jdbc.mybatis.model" />
 	</typeAliases>
-	<typeHandlers>
+	<!-- <typeHandlers>
 		<package name="com.lvdousha.jdbc.mybatis.typeHandler"/>	
-	</typeHandlers>
+	</typeHandlers> -->
 	<plugins>
 		<plugin interceptor="com.lvdousha.jdbc.mybatis.plugin.ExecutorPlugin">
 			<property name="someProperty" value="100" />

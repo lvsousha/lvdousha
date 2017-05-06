@@ -1,20 +1,18 @@
 package com.lvdousha.jdbc.mybatis.plugin;
 
-import java.sql.Statement;
+import java.sql.Connection;
 import java.util.Properties;
 
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
-import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
-import org.apache.ibatis.session.ResultHandler;
 import org.apache.log4j.Logger;
 
-@Intercepts({@Signature(type =StatementHandler.class, method = "query", args ={Statement.class, ResultHandler.class})})  
+@Intercepts({@Signature(type =StatementHandler.class, method = "prepare", args ={Connection.class})})  
 public class StatementHandlerPlugin implements Interceptor {
 
 	private Logger log = Logger.getRootLogger();
