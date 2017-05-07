@@ -19,6 +19,9 @@
 		<plugin interceptor="com.lvdousha.jdbc.mybatis.plugin.StatementHandlerPlugin">
 			<property name="someProperty" value="100" />
 		</plugin>
+		<plugin interceptor="com.lvdousha.jdbc.mybatis.plugin.ParameterHandlerPlugin">
+			<property name="someProperty" value="100" />
+		</plugin>
 	</plugins>
 	<environments default="development">
 		<environment id="development">
@@ -33,5 +36,6 @@
 	</environments>
 	<mappers>
 		<mapper resource="mybatis/UserMapper.xml" />
+		<mapper resource="mybatis/UserDetailMapper.xml" />
 	</mappers>
 </configuration>

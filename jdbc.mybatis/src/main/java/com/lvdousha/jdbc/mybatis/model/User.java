@@ -1,6 +1,7 @@
 package com.lvdousha.jdbc.mybatis.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -9,6 +10,7 @@ public class User {
 	private String password;
 	private Date created;
 	private Date updated;
+	private List<UserDetail> userDetails; 
 	public int getId() {
 		return id;
 	}
@@ -38,6 +40,12 @@ public class User {
 	}
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+	public List<UserDetail> getUserDetails() {
+		return userDetails;
+	}
+	public void setUserDetails(List<UserDetail> userDetails) {
+		this.userDetails = userDetails;
 	}
 	
 }

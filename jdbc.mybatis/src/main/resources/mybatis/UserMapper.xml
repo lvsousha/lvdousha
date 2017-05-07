@@ -6,11 +6,12 @@
 
 	<resultMap id="userResultMap" type="user">
 	  <id property="id" column="id" />
-	  <result property="username" column="name"/>
+	  <result property="name" column="name"/>
 	  <result property="password" column="password"/>
+	  <collection property="userDetails" column="id" ofType="UserDetail" select="com.lvdousha.jdbc.mybatis.mapper.UserDetailMapper.selectByUser"/>
 	</resultMap>
 
-	<select id="selectUser" parameterType="int" resultType="user">
+	<select id="selectUser" parameterType="int" resultMap="userResultMap">
 		select * from user where id = #{id}
 	</select>
 	
@@ -30,7 +31,7 @@
 	  		(#{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
 	</insert>
 	
-	<insert id="insertUsers" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertUsers">
 	  insert into 
 	  user 
 	  		(name, password) 
