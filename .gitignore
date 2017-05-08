@@ -14,3 +14,5 @@ jdbc.mybatis/.classpath
 jdbc.mybatis/.settings/
 web.springboot-mybatis/.classpath
 web.springboot-mybatis/.settings/
+tool/.classpath
+tool/.settings/
