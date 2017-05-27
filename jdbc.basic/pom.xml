@@ -51,4 +51,29 @@
 			</dependency> -->
 
 	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+						<archive>
+							<manifest>
+								<mainClass>com.lvdousha.jdbc.basic.Main</mainClass>
+								<addClasspath>true</addClasspath>
+								<classpathPrefix>target/dependency/</classpathPrefix>
+							</manifest>
+
+						</archive>
+						<classesDirectory>
+						</classesDirectory>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>

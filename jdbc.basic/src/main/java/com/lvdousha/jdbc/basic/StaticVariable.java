@@ -10,9 +10,9 @@ public class StaticVariable {
 
 	public final static String MYSQL_URL = "jdbc:mysql://localhost:3306/lvdousha";
 	
-	public final static String SQLSERVER_CLASS_NAME = "jdbc:sqlserver://localhost:1433;databaseName=你的数据库名";
+	public final static String SQLSERVER_CLASS_NAME = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
-	public final static String SQLSERVER_URL = "jdbc:hive2://10.194.9.61:10001/default";
+	public final static String SQLSERVER_URL = "jdbc:sqlserver://localhost:1433;databaseName=second";
 	
 	public final static String ORACLE_CLASS_NAME = "oracle.jdbc.OracleDriver";
 
