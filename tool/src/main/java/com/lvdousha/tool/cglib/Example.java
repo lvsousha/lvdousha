@@ -5,10 +5,11 @@ import java.util.Date;
 public class Example {
 
 	private String global1 = "g_string";
-	private int i = 0;
-	private Date date=new Date();
+	private int i = 2;
+	public Date date;
 	private final String global2 = "g_final";
 	private static String global3 = "g_static";
+	private final int j = 3;
 	
 	public void test(){
 		String partial1 = "p_string";
@@ -16,12 +17,17 @@ public class Example {
 	}
 	
 	public String test2(){
-		return "test2";
+		test3();
+		test4();
+		return "return_test2";
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	private String test3(){
+		return "return_test3";
 	}
-
+	
+	private static void test4(){
+		int k = 9;
+	}
+	
 }
