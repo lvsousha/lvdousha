@@ -16,3 +16,6 @@ web.springboot-mybatis/.classpath
 web.springboot-mybatis/.settings/
 tool/.classpath
 tool/.settings/
+jdbc.hibernate/.classpath
+jdbc.hibernate/.project
+jdbc.hibernate/.settings/
