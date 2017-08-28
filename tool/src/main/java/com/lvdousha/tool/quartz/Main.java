@@ -15,7 +15,7 @@ public class Main {
 		SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 		Scheduler scheduler = schedulerFactory.getScheduler();
 		JobDetail jd = JobBuilder.newJob(HelloQuartzJob.class).build();
-		Trigger
+//		Trigger
 		
 		
 		

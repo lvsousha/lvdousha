@@ -18,5 +18,9 @@ public class StaticVariable {
 
 	public final static String ORACLE_URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	
+	public final static String GP_CLASS_NAME = "com.pivotal.jdbc.GreenplumDriver";
+	
+	public final static String GP_URL = "jdbc:pivotal:greenplum://192.168.1.121:5432;DatabaseName=gpadmin";
+	
 	
 }

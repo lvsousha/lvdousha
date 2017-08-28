@@ -2,6 +2,7 @@ package com.lvdousha.jdbc.basic;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import org.apache.log4j.Logger;
 
@@ -15,10 +16,10 @@ public class Main
 	//批量插入10000，2s； 批量更新150s
     public static void main( String[] args ) throws Exception{
     	Logger log = Logger.getRootLogger();
-    	String driverClassName = StaticVariable.SQLSERVER_CLASS_NAME;
-    	String url = StaticVariable.SQLSERVER_URL;
-    	String userName = "sa";
-    	String password = "sa";
+    	String driverClassName = StaticVariable.GP_CLASS_NAME;
+    	String url = StaticVariable.GP_URL;
+    	String userName = "gpmon";
+    	String password = "pivotal";
     	Class.forName(driverClassName);
     	java.sql.Connection connection = DriverManager.getConnection(url,userName,password);
 //    	boolean autoCommit = connection.getAutoCommit();
@@ -28,7 +29,12 @@ public class Main
 //    	log.info(connection.getAutoCommit());
 //    	log.info("开始插入");
 //    	
-//    	PreparedStatement prepareStatement = connection.prepareStatement("insert into demo_2(id,sex) value(?,?)");
+    	System.out.println(connection);
+    	PreparedStatement prepareStatement = connection.prepareStatement("SELECT * FROM   gpadmin.information_schema.attributes");
+    	ResultSet result = prepareStatement.executeQuery();
+    	while(result.next()){
+    		System.out.println(result.getObject(2));
+    	}
 //    	for(int i=4;i<1000;i++){
 //    		prepareStatement.setInt(1, i);
 //    		prepareStatement.setString(2, "test"+i);
