@@ -18,6 +18,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         
         <mapping resource="xml/Employee.hbm.xml"/>
+        <mapping class="com.lvdousha.jdbc.hibernate.model.Staff" />
           
     </session-factory>  
 </hibernate-configuration> 
