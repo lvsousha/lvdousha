@@ -1,4 +1,4 @@
-package com.lvdousha.jdbc.hibernate.model;
+package com.lvdousha.jdbc.hibernate.model.Annotation;
 
 import java.io.Serializable;
 
