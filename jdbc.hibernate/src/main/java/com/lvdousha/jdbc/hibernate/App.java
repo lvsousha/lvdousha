@@ -1,5 +1,6 @@
 package com.lvdousha.jdbc.hibernate;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -15,7 +16,8 @@ public class App
     public static void main( String[] args ){
     	App app = new App();
 //    	app.createTableInDatabase();
-    	app.createSessionFactory();
+    	SessionFactory sf = app.createSessionFactory();
+    	Session session = sf.openSession();
     	
         
         
@@ -24,14 +26,14 @@ public class App
         
     }
     
-    public void createSessionFactory(){
+    public SessionFactory createSessionFactory(){
     	Configuration cfr = new Configuration().configure();
     	StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder().configure();  
     	ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();  
 //    	Metadata metadata = new MetadataSources( serviceRegistry ).buildMetadata();
 //    	metadata.getSessionFactoryBuilder().build();
     	SessionFactory sf = cfr.buildSessionFactory(serviceRegistry);
-//    	sf.openSession();
+    	return sf;
     }
     
     public void createTableInDatabase(){
